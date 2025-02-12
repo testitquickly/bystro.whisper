@@ -8,30 +8,36 @@ COMMENT
 
 source variables.sh
 
+
+    # === Конвертирование ===
+
+./ffmpeg/convert-sound-files-to-wav.sh
+
+
     # === Транскрибирование ===
 
-#../scripts/model/small.sh
-../scripts/model/medium.sh
-#../scripts/model/large.sh
+#.model/small.sh
+./model/medium.sh
+#./model/large.sh
 
 
     # === Zim ===
 
     # собрать новый файл для Zim на основе содержимого всех vtt-файлов
-../scripts/zim/convert-vtt-file-to-txt.sh
+./zim/convert-vtt-file-to-txt.sh
     # пересобрать содержимое страницы Main
-../scripts/zim/update-main-file-content.sh
+./zim/update-main-file-content.sh
 
 
     # === Конвертирование файлов из wav в ogg ===
 
     # конвертировать все wav-файлы в ogg-файлы
-../scripts/ffmpeg/convert-wav-to-ogg.sh
+./ffmpeg/convert-wav-to-ogg.sh
 
 
     # === TAR ===
 
     # перенести в архив файлы ogg и vtt
-../scripts/tar/archive-files.sh
-    # очистить каталог /input
-#../scripts/tar/delete-unnecessary-files.sh
+./tar/archive-files.sh
+    # очистить каталог /input (уничтожает ВСЁ содержимое)
+#./tar/delete-unnecessary-files.sh
