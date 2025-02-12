@@ -9,11 +9,11 @@ echo -e "\n\t>> Переместить файлы из каталога /input �
 # files=$(find "$full_path_to_input_folder" -maxdepth 1 -type f \( -name "*.ogg" -o -name "*.vtt" \) | sort)
 
 # Найти и отсортировать файлы, затем обработать их построчно
-find "$full_path_to_input_folder" -maxdepth 1 -type f \( -name "*.ogg" -o -name "*.vtt" \) | sort | while read -r file; do
+find "$INPUT_FOLDER" -maxdepth 1 -type f \( -name "*.ogg" -o -name "*.vtt" \) | sort | while read -r file; do
     if [[ -f "$file" ]]; then
 
         # Добавить файл в архив
-        tar -rvf "$archive_filename" -C "$full_path_to_input_folder" "$(basename "$file")" && \
+        tar -rvf "$archive_filename" -C "$INPUT_FOLDER" "$(basename "$file")" && \
 
         # Удалить файл с диска после добавления в архив
         rm "$file"

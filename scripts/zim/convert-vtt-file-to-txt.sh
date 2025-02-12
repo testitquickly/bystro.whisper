@@ -39,7 +39,7 @@ done
 
     # переместить все файлы txt из input в блокнот zim/main
 if ls *.txt 1> /dev/null 2>&1; then
-  mv *.txt "$zim_main_folder/"
+  mv *.txt "$zim_main_folder"
 else
   echo "Нет файлов .txt для перемещения"
 fi
