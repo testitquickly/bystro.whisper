@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "\n\t>> Обновить перечень ссылок на дочерние файлы для страницы «main»\n"
+echo -e "\n\t>> Обновить перечень ссылок на дочерние файлы для страницы «Home»"
 
 # Проверяем существование папки
 if [ ! -d "$zim_main_folder" ]; then
@@ -14,7 +14,7 @@ Content-Type: text/x-zim-wiki
 Wiki-Format: zim 0.6
 Creation-Date: 2023-01-12T16:01:54+02:00
 
-====== main ======
+====== Home ======
 
 EOL
 
@@ -34,7 +34,7 @@ process_files() {
     if [ -d "$ENTRY" ]; then
       # Проверяем, что одноимённый файл существует
       local PARENT_NOTE="${ENTRY}.txt"
-      if [ -f "$PARENT_NOTE" ] && [ "$PARENT_NOTE" != "$zim_main_folder/main.txt" ]; then
+      if [ -f "$PARENT_NOTE" ] && [ "$PARENT_NOTE" != "$zim_main_folder/Home.txt" ]; then
         local NOTE_NAME=$(basename "$ENTRY" | sed 's/_/ /g')
 
         # Формируем отступ в зависимости от уровня вложенности
@@ -59,7 +59,7 @@ process_files() {
       local NOTE_NAME=$(echo "$BASENAME" | sed 's/_/ /g')
 
       # Пропускаем файл main.txt
-      if [ "$CURRENT_FOLDER/$FILENAME" != "$zim_main_folder/main.txt" ]; then
+      if [ "$CURRENT_FOLDER/$FILENAME" != "$zim_main_folder/Home.txt" ]; then
         local INDENT=$'\t'
         echo -e "$counter. $INDENT[[$NOTE_NAME|$NOTE_NAME]]" >> "$zim_main_file"
         ((counter++))
@@ -87,13 +87,13 @@ process_files_with_bullets() {
       local INDENT=$'\t'
 
       # Пропускаем файл main.txt
-      if [ "$CURRENT_FOLDER/$FILENAME" != "$zim_main_folder/main.txt" ]; then
+      if [ "$CURRENT_FOLDER/$FILENAME" != "$zim_main_folder/Home.txt" ]; then
         echo -e "$INDENT* [[$PARENT_NAME:$NOTE_NAME|$NOTE_NAME]]" >> "$zim_main_file"
       fi
     elif [ -d "$ENTRY" ]; then
       # Проверяем, что одноимённый файл существует
       local PARENT_NOTE="${ENTRY}.txt"
-      if [ -f "$PARENT_NOTE" ] && [ "$PARENT_NOTE" != "$zim_main_folder/main.txt" ]; then
+      if [ -f "$PARENT_NOTE" ] && [ "$PARENT_NOTE" != "$zim_main_folder/Home.txt" ]; then
         local NOTE_NAME=$(basename "$ENTRY" | sed 's/_/ /g')
 
         # Формируем отступ для каталога

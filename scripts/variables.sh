@@ -21,8 +21,8 @@ export NUMEXPR_NUM_THREADS=1
     # === Zim ===
 
 export zim_main_folder="/home/astenix/Dropbox/Notebooks/Whisper/"
-export zim_main_file="/home/astenix/Dropbox/Notebooks/Whisper/main.txt"
-``
+export zim_main_file="/home/astenix/Dropbox/Notebooks/Whisper/Home.txt"
+
     # === TAR ===
 
     # имя файла с архивом tar

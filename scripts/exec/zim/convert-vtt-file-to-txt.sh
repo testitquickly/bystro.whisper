@@ -29,10 +29,10 @@ for file in *.vtt; do
     sed -e '/^[0-9].*-->.*[0-9]$/d' \
         -e '1!{/^\s*$/d}' \
         -e 's/WEBVTT//g' \
-        -e "1s/^/Content-Type: text\/x-zim-wiki\nWiki-Format: zim 0.6\nCreation-Date: $current_date_and_time\n\n===== ${file%.vtt} =====\n/" \
+        -e "1s/^/Content-Type: text\/x-zim-wiki\nWiki-Format: zim 0.6\nCreation-Date: $current_date_and_time\n\n===== ${file%.vtt} =====\n\n''${file%.vtt}.ogg''\n/" \
         "$file" > "$output_file"
 
-    echo "Создан файл $output_file"
+    echo "• $output_file"
 
     fi
 done
