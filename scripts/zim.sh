@@ -12,6 +12,6 @@ COMMENT
     # === Zim ===
 
     # собрать новый файл для Zim на основе содержимого всех vtt-файлов
-#./scripts/zim/convert-vtt-file-to-txt.sh
+./exec/zim/convert-vtt-file-to-txt.sh
     # пересобрать содержимое страницы Main
-./scripts/zim/update-main-file-content.sh
+./exec/zim/update-main-file-content.sh

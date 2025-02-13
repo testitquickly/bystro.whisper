@@ -1,4 +1,6 @@
 *.tar
 *.ogg
 *.wav
-/run/zim.sh
+*.vtt
+*.txt
+/scripts/zim.sh
