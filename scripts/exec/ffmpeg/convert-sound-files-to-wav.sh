@@ -8,8 +8,6 @@
 
 echo -e "\n\t>> Конвертировать новые аудиофайлы в wav"
 
-echo -e "\n\tОбработанные файлы:\n"
-
     # Цикл по всем файлам в каталоге
 for file in "$INPUT_FOLDER"/*; do
       # Проверить, что это файл
@@ -27,3 +25,5 @@ for file in "$INPUT_FOLDER"/*; do
 
   fi
 done
+
+echo -e "\n\t<< Сконвертировал"
