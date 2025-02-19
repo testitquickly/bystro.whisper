@@ -26,4 +26,4 @@ for file in "$INPUT_FOLDER"/*; do
   fi
 done
 
-echo -e "\n\t<< Сконвертировал"
+echo -e "\n<< Сконвертировал"

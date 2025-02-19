@@ -6,7 +6,7 @@ COMMENT
 
     # = Глобальный файл с переменными =
 
-. variables.sh
+. ./exec/variables.sh
 
 
     # === Zim ===
