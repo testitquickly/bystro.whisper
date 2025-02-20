@@ -36,10 +36,10 @@ fi
 
 
       # запуск отдельного окна с нагрузкой на GPU
-#    konsole --noclose -e nvtop 2>/dev/null &
+    #konsole --noclose -e nvtop 2>/dev/null &
 
       # запуск отдельного окна с нагрузкой на CPU
-#    konsole --noclose -e htop 2>/dev/null &
+    #konsole --noclose -e htop 2>/dev/null &
 
 
 
