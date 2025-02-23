@@ -20,4 +20,4 @@ find "$INPUT_FOLDER" -maxdepth 1 -type f \( -name "*.ogg" -o -name "*.vtt" \) | 
     fi
 done
 
-echo -e "\nПереместил <<\n"
+echo -e "\nПереместил"

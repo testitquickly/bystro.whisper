@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "\n\t>> Обновить перечень ссылок на дочерние файлы для страницы «Home»"
+echo -e "\n\t>> Обновить ссылки на странице «Home»"
 
 # Проверяем существование папки
 if [ ! -d "$zim_main_folder" ]; then
@@ -111,4 +111,4 @@ process_files_with_bullets() {
 # Запускаем обработку файлов в папке
 process_files "$zim_main_folder" 0
 
-echo -e "\nОбновил <<\n"
+echo -e "\nОбновил"

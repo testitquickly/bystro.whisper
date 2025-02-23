@@ -121,4 +121,4 @@ deactivate
 
   # снова сохранить время в переменную CURRENT_TIME
 CURRENT_TIME=$(LC_TIME=ru_RU.UTF-8 date +"%H:%M")
-echo -e "\n($CURRENT_TIME) Сделал <<"
+echo -e "\nТранскрибировал ($CURRENT_TIME)"

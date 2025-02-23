@@ -10,3 +10,5 @@ for file in $INPUT_FOLDER/*.wav; do
 
     echo -e "• '$file'"
 done
+
+echo -e "\nСконвертировал"
