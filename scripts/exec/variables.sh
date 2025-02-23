@@ -14,7 +14,7 @@ export whisper_device='cpu'
     # кавычки не нужны, это boolean
     # для cuda его вообще нужно убрать из файла с моделью
 export whisper_fp16=False
-export whisper_threads='3'
+export whisper_threads='2'
 export OPENBLAS_NUM_THREADS=1
 export MKL_NUM_THREADS=1
 export OMP_NUM_THREADS=1
