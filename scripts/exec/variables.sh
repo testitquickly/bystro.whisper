@@ -23,7 +23,7 @@ export NUMEXPR_NUM_THREADS=1
     # === Zim ===
 
 export zim_main_folder="/home/hdd/Dropbox/Notebooks/Whisper/"
-export zim_main_file="/home/hdd/Dropbox/Notebooks/Whisper/Home.txt"
+export zim_index_file="/home/hdd/Dropbox/Notebooks/Whisper/index.txt"
 
     # === TAR ===
 

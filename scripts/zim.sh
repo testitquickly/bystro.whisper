@@ -14,4 +14,4 @@ COMMENT
     # собрать новый файл для Zim на основе содержимого всех vtt-файлов
 ./exec/zim/convert-vtt-file-to-txt.sh
     # пересобрать содержимое страницы Main
-./exec/zim/update-main-file-content.sh
+./exec/zim/update-index.sh
