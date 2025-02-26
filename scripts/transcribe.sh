@@ -35,3 +35,5 @@ COMMENT
 ./exec/tar/archive-files.sh
     # очистить каталог /input
 #./exec/tar/delete-unnecessary-files.sh
+
+echo "\n "

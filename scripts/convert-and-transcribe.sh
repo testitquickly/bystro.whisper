@@ -41,3 +41,5 @@ source ./exec/variables.sh
 ./exec/tar/archive-files.sh
     # очистить каталог /input (уничтожает ВСЁ содержимое)
 #./exec/tar/delete-unnecessary-files.sh
+
+echo "\n "

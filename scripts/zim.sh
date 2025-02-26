@@ -15,3 +15,5 @@ COMMENT
 ./exec/zim/convert-vtt-file-to-txt.sh
     # пересобрать содержимое страницы Main
 ./exec/zim/update-index.sh
+
+echo "\n "
