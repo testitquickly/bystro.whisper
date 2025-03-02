@@ -105,7 +105,7 @@ EXIT_CODE=$?
 
   if [ $EXIT_CODE -eq 0 ]; then
     # подтвердить успех транскрибации
-    echo -e "$(printf "%d) \"%s\" ($FORMATTED_DURATION)" $COUNTER "$FILENAME")"
+    echo -e "$(printf "%d) %s ($FORMATTED_DURATION)" $COUNTER "$FILENAME")"
   else
     echo -e "Ошибка обработки \"$FILENAME\". Код ошибки: $EXIT_CODE.\n(если '127' — whisper не запущен, не поднялся python virt env)"
   fi

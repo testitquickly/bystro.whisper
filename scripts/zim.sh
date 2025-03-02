@@ -16,4 +16,4 @@ COMMENT
     # пересобрать содержимое страницы Main
 ./exec/zim/update-index.sh
 
-echo "\n "
+echo -e "\n "

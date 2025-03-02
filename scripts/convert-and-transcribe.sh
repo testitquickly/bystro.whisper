@@ -42,4 +42,4 @@ source ./exec/variables.sh
     # очистить каталог /input (уничтожает ВСЁ содержимое)
 #./exec/tar/delete-unnecessary-files.sh
 
-echo "\n "
+echo -e "\n "

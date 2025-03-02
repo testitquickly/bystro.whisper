@@ -13,10 +13,17 @@ find "$INPUT_FOLDER" -maxdepth 1 -type f \( -name "*.ogg" -o -name "*.vtt" \) | 
     if [[ -f "$file" ]]; then
 
         # Добавить файл в архив
-        tar -rvf "$archive_filename" -C "$INPUT_FOLDER" "$(basename "$file")" && \
+	# r — --append) — добавить файлы в конец существующего архива.
+	    # Работает только с не-сжатым архивом (.tar). Если архив уже сжат (.tar.gz, .tar.bz2), этот флаг не сработает.
+	# -f (--file) — указывает имя архива (переменная $archive_filename)
+        tar -rf "$archive_filename" -C "$INPUT_FOLDER" "$(basename "$file")" && \
 
         # Удалить файл с диска после добавления в архив
         rm "$file"
+
+	# Вывести сообщение о каждом файле, который был добавлен в архив
+        # basename "$file" — извлекает имя файла (и его расширение) из полного пути.
+	echo -e "• $(basename "$file")"
     fi
 done
 

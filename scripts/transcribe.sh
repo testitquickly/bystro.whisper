@@ -36,4 +36,4 @@ COMMENT
     # очистить каталог /input
 #./exec/tar/delete-unnecessary-files.sh
 
-echo "\n "
+echo -e "\n "
