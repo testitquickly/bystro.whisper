@@ -39,17 +39,14 @@ if [ -z "$VIRTUAL_ENV" ]; then
   exit 1
 else
     CURRENT_TIME=$(LC_TIME=ru_RU.UTF-8 date +"%H:%M")
-    echo -e "\n\t>> ($CURRENT_TIME) Транскрибировать аудиофайлы ($TOTAL_FILES) через Whisper, модель «LARGE»\n"
+    echo -e "\n\t>> Начинаю транскрибирование\n\n\t$CURRENT_TIME\n\tМодель: «large»\n\tФайлов: $TOTAL_FILES\n"
 fi
-
-
 
       # запуск отдельного окна с нагрузкой на GPU
     #konsole --noclose -e nvtop 2>/dev/null &
 
       # запуск отдельного окна с нагрузкой на CPU
     #konsole --noclose -e htop 2>/dev/null &
-
 
 
     # Обработать каждый файл .wav в каталоге input

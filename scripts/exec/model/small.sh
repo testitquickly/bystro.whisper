@@ -39,7 +39,7 @@ if [ -z "$VIRTUAL_ENV" ]; then
   exit 1
 else
     CURRENT_TIME=$(LC_TIME=ru_RU.UTF-8 date +"%H:%M")
-    echo -e "\n\t>> ($CURRENT_TIME) Транскрибировать аудиофайлы ($TOTAL_FILES) через Whisper, модель «small»\n"
+    echo -e "\n\t>> Начинаю транскрибирование\n\n\t$CURRENT_TIME\n\tМодель: «small»\n\tФайлов: $TOTAL_FILES\n"
 fi
 
 
