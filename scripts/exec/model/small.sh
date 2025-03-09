@@ -32,7 +32,7 @@ if [ -z "$VIRTUAL_ENV" ]; then
   exit 1
 else
     CURRENT_TIME=$(LC_TIME=ru_RU.UTF-8 date +"%H:%M")
-    echo -e "\n\t>> Начинаю транскрибирование\n\n\tМодель: «small»\n\tФайлов: $TOTAL_FILES\n\tВремя: $CURRENT_TIME\n"
+    echo -e "\n\t>> Начинаю транскрибирование\n\n\tМодель:\tsmall\n\tВремя:\t$CURRENT_TIME\n\tФайлов:\t$TOTAL_FILES\n"
 fi
 
       # запуск отдельного окна с нагрузкой на GPU
@@ -97,17 +97,18 @@ EXIT_CODE=$?
   else
     echo -e "Ошибка обработки \"$FILENAME\". Код ошибки: $EXIT_CODE.\n(если '127' — whisper не запущен, не поднялся python virt env)"
   fi
-  # Уменьшить счетчик количества файлов на одну единицу
-  ((COUNTER--))
-done
 
+    # Уменьшить счетчик только если файлов больше одного, иначе пропустить этот шаг
+if [ "$COUNTER" -gt 1 ]; then
+  ((COUNTER--))
+fi
+done
 
 
     # disengage whisper Python virtual environment
 deactivate
 
 
-
   # снова сохранить время в переменную CURRENT_TIME
 CURRENT_TIME=$(LC_TIME=ru_RU.UTF-8 date +"%H:%M")
-echo -e "\nТранскрибировал. Время: $CURRENT_TIME"
+echo -e "\nТранскрибировал. Время:\t$CURRENT_TIME"
