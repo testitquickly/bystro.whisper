@@ -10,9 +10,9 @@ COMMENT
 
 # === Транскрибирование ===
 
-    #./exec/model/small.sh
+#./exec/model/small.sh
 ./exec/model/medium.sh
-    #./exec/model/large.sh
+#./exec/model/large.sh
 
 # === Zim ===
 
@@ -34,6 +34,8 @@ COMMENT
 # === COMMON ===
 
     # очистить каталог /input
+    # переместить оставшиеся файлы в корзину (на всякий случай)
+    # при восстановлении все кириллические символы в названии будут заменены на „/?”
 ./exec/common/trash-files-from-input.sh
 
 echo -e "\n "
