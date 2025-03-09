@@ -1,11 +1,17 @@
 # bystro.whisper
-Мини-фреймворк на файлах .sh (bash) для организации запуска транскрибирования аудиофайлов через нейросеть Whisper
+Мини-фреймворк на файлах .sh (bash) для транскрибирования аудиофайлов через нейросеть Whisper (OpenAI).
 
-## To Do
+## Описание проекта
 
-* описание проекта
-* инструкция — установка
-* инструкция — запуск
+To do.
+
+## Инструкция — установка
+
+To do.
+
+## инструкция — запуск
+
+To do.
 
 ## Автор
 
@@ -20,6 +26,6 @@ Email: astenix@testitquickly.com
 
 Project URL: [https://github.com/testitquickly/bystro.whisper](https://github.com/testitquickly/bystro.whisper)
 
-Другие проекты:
+Если интересно:
 * [github.com/testitquickly/bystro.linux](https://github.com/testitquickly/bystro.linux)
 * [github.com/testitquickly/bystro.linux.nas](https://github.com/testitquickly/bystro.linux.nas)
