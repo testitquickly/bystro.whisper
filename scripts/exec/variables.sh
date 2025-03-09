@@ -4,7 +4,13 @@
 export VENV_PATH='/home/hdd/workspace/Whisper/Whisper_env/bin/activate'
 
     # Каталог с файлами (без завершающего слэша)
-export INPUT_FOLDER='/home/hdd/workspace/bystro.whisper/input'
+export folder_input='/home/hdd/workspace/bystro.whisper/input'
+    # Каталог корзины и её подкаталоги
+export folder_trash="$HOME/.local/share/Trash"
+export folder_trash_files="$folder_trash/files"
+export folder_trash_info="$folder_trash/info"
+
+    # Переменные для настройки whisper
 export whisper_language='Russian'
 export whisper_output_format='vtt'
     # set 'cpu' by default; 

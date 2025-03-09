@@ -8,12 +8,13 @@ COMMENT
 
 . ./exec/variables.sh
 
-
-    # === Zim ===
+# === Zim ===
 
     # собрать новый файл для Zim на основе содержимого всех vtt-файлов
 ./exec/zim/convert-vtt-file-to-txt.sh
     # пересобрать содержимое страницы Main
 ./exec/zim/update-index.sh
+
+#./exec/common/trash-files-from-input.sh
 
 echo -e "\n "

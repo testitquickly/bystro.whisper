@@ -7,13 +7,13 @@
 
 
     # создать FILES - массив всех wav-файлов в каталоге input
-FILES=("$INPUT_FOLDER"/*.wav)
+FILES=("$folder_input"/*.wav)
     # подсчитать количество вхождений в массиве FILES
 TOTAL_FILES=${#FILES[@]}
 
   # Если в каталоге нет файлов wav — прекратить работу
 if [ "$TOTAL_FILES" -eq 0 ]; then
-  echo "Нет файлов .wav для обработки в $INPUT_FOLDER."
+  echo "Нет файлов .wav для обработки в $folder_input."
   exit 1
 fi
 
@@ -31,7 +31,7 @@ if [ -z "$VIRTUAL_ENV" ]; then
   exit 1
 else
     CURRENT_TIME=$(LC_TIME=ru_RU.UTF-8 date +"%H:%M")
-    echo -e "\n\t>> Начинаю транскрибирование\n\n\t$CURRENT_TIME\n\tМодель: «medium»\n\tФайлов: $TOTAL_FILES\n"
+    echo -e "\n\t>> Начинаю транскрибирование\n\n\tМодель: «medium»\n\tФайлов: $TOTAL_FILES\n\tВремя: $CURRENT_TIME\n"
 fi
 
       # запуск отдельного окна с нагрузкой на GPU
@@ -42,7 +42,7 @@ fi
 
 
   # Обработать каждый файл .wav в каталоге input
-for FILE in "$INPUT_FOLDER"/*.wav; do
+for FILE in "$folder_input"/*.wav; do
     # Сохранить имя файла без полного пути к нему
   FILENAME=$(basename "$FILE")
 
@@ -83,7 +83,7 @@ whisper "$FILE" \
     --device "$whisper_device" \
     --threads "$whisper_threads" \
     --fp16 "$whisper_fp16" \
-    --output_dir "$INPUT_FOLDER" \
+    --output_dir "$folder_input" \
     > /dev/null 2>&1
 
 EXIT_CODE=$?
@@ -106,4 +106,4 @@ deactivate
 
   # снова сохранить время в переменную CURRENT_TIME
 CURRENT_TIME=$(LC_TIME=ru_RU.UTF-8 date +"%H:%M")
-echo -e "\nТранскрибировал ($CURRENT_TIME)"
+echo -e "\nТранскрибировал. Время: $CURRENT_TIME"

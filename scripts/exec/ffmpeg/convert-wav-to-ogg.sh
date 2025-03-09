@@ -2,7 +2,7 @@
 
 echo -e "\n\t>> Конвертировать файлы wav в ogg:\n"
 
-for file in $INPUT_FOLDER/*.wav; do
+for file in $folder_input/*.wav; do
         # Заменить расширение .wav на .ogg
     output_ogg_file="${file%.wav}.ogg"
         # Конвертация в ogg
