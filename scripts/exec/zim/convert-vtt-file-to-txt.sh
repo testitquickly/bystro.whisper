@@ -3,7 +3,7 @@
 echo -e "\n\t>> Переделать файлы vtt в txt для Zim\n"
 
 # Перейти в каталог /input
-cd "$INPUT_FOLDER" || exit 1
+cd "$folder_input" || exit 1
 
 # Получить текущую дату и время
 current_date_and_time=$(date +"%Y-%m-%dT%H:%M:%S")
