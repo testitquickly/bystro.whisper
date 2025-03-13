@@ -6,36 +6,36 @@ COMMENT
 
 # = Глобальный файл с переменными =
 
-. ./exec/variables.sh
+. ./scripts/variables.sh
 
 # === Транскрибирование ===
 
-#./exec/model/small.sh
-./exec/model/medium.sh
-#./exec/model/large.sh
+#./scripts/model/small.sh
+./scripts/model/medium.sh
+#./scripts/model/large.sh
 
 # === Zim ===
 
     # собрать новый файл для Zim на основе содержимого всех vtt-файлов
-./exec/zim/convert-vtt-file-to-txt.sh
+./scripts/zim/convert-vtt-file-to-txt.sh
     # пересобрать содержимое страницы Main
-./exec/zim/update-index.sh
+./scripts/zim/update-index.sh
 
 # === Конвертирование файлов из wav в ogg ===
 
     # конвертировать все wav-файлы в ogg-файлы
-./exec/ffmpeg/convert-wav-to-ogg.sh
+./scripts/ffmpeg/convert-wav-to-ogg.sh
 
 # === TAR ===
 
     # перенести в архив файлы ogg и vtt
-./exec/tar/archive-files.sh
+./scripts/tar/archive-files.sh
 
 # === COMMON ===
 
     # очистить каталог /input
     # переместить оставшиеся файлы в корзину (на всякий случай)
     # при восстановлении все кириллические символы в названии будут заменены на „/?”
-./exec/common/trash-files-from-input.sh
+./scripts/common/trash-files-from-input.sh
 
 echo -e "\n "

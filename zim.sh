@@ -6,14 +6,14 @@ COMMENT
 
     # = Глобальный файл с переменными =
 
-. ./exec/variables.sh
+. ./scripts/variables.sh
 
 # === Zim ===
 
     # собрать новый файл для Zim на основе содержимого всех vtt-файлов
-./exec/zim/convert-vtt-file-to-txt.sh
+./scripts/zim/convert-vtt-file-to-txt.sh
     # пересобрать содержимое страницы Main
-./exec/zim/update-index.sh
+./scripts/zim/update-index.sh
 
 #./exec/common/trash-files-from-input.sh
 
