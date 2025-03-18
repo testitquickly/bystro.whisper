@@ -5,6 +5,7 @@ export whisper_virtual_environment_path='/home/hdd/workspace/Whisper/Whisper_env
 
     # Каталог с файлами (без завершающего слэша)
 export folder_input='/home/hdd/workspace/bystro.whisper/input'
+
     # Каталог корзины и её подкаталоги
 export folder_trash="$HOME/.local/share/Trash"
 export folder_trash_files="$folder_trash/files"
@@ -13,17 +14,28 @@ export folder_trash_info="$folder_trash/info"
     # Переменные для настройки whisper
 export whisper_language='Russian'
 export whisper_output_format='vtt'
-    # set 'cpu' by default; 
-    # set 'cuda' for dedicated videocard
+
+    # 'cpu' для работы с процессора, 'cuda' для работы с выделенной видеокарты
 export whisper_device='cpu'
+
+    # Количество физических ядер, выделенных для Whisper
+export whisper_threads='2'
+
     # по-умолчанию True. Установить 'False' для CPU;
     # кавычки не нужны, это boolean
     # для cuda его вообще нужно убрать из файла с моделью
 export whisper_fp16=False
-export whisper_threads='2'
-export OPENBLAS_NUM_THREADS=1
-export MKL_NUM_THREADS=1
-export OMP_NUM_THREADS=1
+
+    # OpenBLAS — для линейной алгебры (могут использоваться при работе с тензорами в PyTorch). Важное.
+export OPENBLAS_NUM_THREADS=2
+
+    # MKL — если у тебя установлена версия PyTorch, собранная с Intel MKL, то эта библиотека тоже может влиять на производительность. Важное.
+export MKL_NUM_THREADS=2
+
+    # OpenMP (OMP) — напрямую используется PyTorch для параллельных операций. Важное.
+export OMP_NUM_THREADS=2
+
+    # NumExpr — редко задействуется в Whisper, используется со сторонними библиотеками для доп. обработки данных.
 export NUMEXPR_NUM_THREADS=1
 
 # === Zim ===
