@@ -14,7 +14,7 @@ Content-Type: text/x-zim-wiki
 Wiki-Format: zim 0.6
 Creation-Date: 2023-01-12T16:01:54+02:00
 
-====== Home ======
+====== index ======
 
 EOL
 
@@ -58,7 +58,7 @@ process_files() {
 
       local NOTE_NAME=$(echo "$BASENAME" | sed 's/_/ /g')
 
-      # Пропускаем файл main.txt
+      # Пропускаем файл index.txt
       if [ "$CURRENT_FOLDER/$FILENAME" != "$zim_main_folder/index.txt" ]; then
         local INDENT=$'\t'
         echo -e "$counter. $INDENT[[$NOTE_NAME|$NOTE_NAME]]" >> "$zim_index_file"
@@ -86,7 +86,7 @@ process_files_with_bullets() {
       # Формируем отступ в зависимости от уровня вложенности
       local INDENT=$'\t'
 
-      # Пропускаем файл main.txt
+      # Пропускаем файл index.txt
       if [ "$CURRENT_FOLDER/$FILENAME" != "$zim_main_folder/index.txt" ]; then
         echo -e "$INDENT* [[$PARENT_NAME:$NOTE_NAME|$NOTE_NAME]]" >> "$zim_index_file"
       fi
