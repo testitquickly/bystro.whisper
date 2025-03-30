@@ -47,8 +47,9 @@ COMMENT
 
     # короткий сигнал про завершение транскрибрования
 # paplay /usr/share/sounds/freedesktop/stereo/phone-incoming-call.oga
+$sound_all_files_are_transcribed_short
 
     # долгий сигнал про завершение транскрибрования
-$sound_all_files_are_transcribed
+# $sound_all_files_are_transcribed_long
 
 echo -e "\n "

@@ -54,4 +54,7 @@ export archive_filename='/home/astenix/workspace/Whisper/archive.tar'
 export sound_file_is_transcribed='paplay /usr/share/sounds/freedesktop/stereo/dialog-warning.oga'
 
     # долгий сигнал про завершение транскрибрования всех файлов
-export sound_all_files_are_transcribed='paplay /usr/share/sounds/Oxygen-Sys-Log-In.ogg'
+export sound_all_files_are_transcribed_long='paplay /usr/share/sounds/Oxygen-Sys-Log-In.ogg'
+
+    # короткий сигнал про завершение транскрибрования всех файлов
+export sound_all_files_are_transcribed_short='paplay /usr/share/sounds/Oxygen-Sys-Log-In-Short.ogg'
