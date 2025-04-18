@@ -12,7 +12,7 @@ COMMENT
 
 #./scripts/model/small.sh
 #./scripts/model/medium.sh
-#./scripts/model/large.sh
+./scripts/model/large.sh
 
 # === Zim ===
 
@@ -24,7 +24,7 @@ COMMENT
 # === Конвертирование файлов из wav в ogg ===
 
     # конвертировать все wav-файлы в ogg-файлы
-#./scripts/ffmpeg/convert-wav-to-ogg.sh
+./scripts/ffmpeg/convert-wav-to-ogg.sh
 
 # === TAR ===
 
@@ -37,6 +37,7 @@ COMMENT
     # переместить оставшиеся файлы в корзину (на всякий случай)
     # при восстановлении все кириллические символы в названии будут заменены на „/?”
 #./scripts/common/trash-files-from-input.sh
+
 ./scripts/common/move-files-to-archive-folder.sh
 
 # === END OF STORY ===

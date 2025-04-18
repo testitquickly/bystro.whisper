@@ -1,7 +1,7 @@
 # === Транскрибирование ===
 
     # Путь к виртуальному окружению Python с Whisper
-export whisper_virtual_environment_path='/home/astenix/workspace/whisper/whisper_env/bin/activate'
+export whisper_virtual_environment_path='/home/astenix/workspace/Whisper/Whisper_env/bin/activate'
 
     # Каталог с файлами (без завершающего слэша)
 export folder_input='/home/astenix/workspace/bystro.whisper/input'
@@ -17,7 +17,7 @@ export whisper_language='Russian'
 export whisper_output_format='vtt'
 
     # 'cpu' для работы с процессора, 'cuda' для работы с выделенной видеокарты
-export whisper_device='cuda'
+export whisper_device='cpu'
 
     # Количество физических ядер, выделенных для Whisper
 export whisper_threads='2'
@@ -25,7 +25,7 @@ export whisper_threads='2'
     # по-умолчанию True. Установить 'False' для CPU;
     # кавычки не нужны, это boolean
     # для cuda его вообще нужно убрать из файла с моделью
-export whisper_fp16=True
+export whisper_fp16=False
 
     # OpenBLAS — для линейной алгебры (могут использоваться при работе с тензорами в PyTorch). Важное.
 export OPENBLAS_NUM_THREADS=2
@@ -48,7 +48,7 @@ export zim_index_file="/home/astenix/Dropbox/Notebooks/Whisper/index.txt"
 
 export archive_filename='/home/astenix/workspace/Whisper/archive.tar'
 
-# === FINAL SOUND ===
+# === FINAL SOUNDS ===
 
     # короткий сигнал про завершение транскрибрования каждого файла
 export sound_file_is_transcribed='paplay /usr/share/sounds/freedesktop/stereo/dialog-warning.oga'
