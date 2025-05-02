@@ -5,7 +5,7 @@ export whisper_virtual_environment_path='/home/astenix/workspace/Whisper/Whisper
 
     # Каталог с файлами (без завершающего слэша)
 export folder_input='/home/astenix/workspace/bystro.whisper/input'
-export folder_output='/home/astenix/workspace/Whisper/archive/'
+export folder_output='/home/astenix/workspace/bystro.whisper/archive/'
 
     # Каталог корзины и её подкаталоги
 export folder_trash="$HOME/.local/share/Trash"
