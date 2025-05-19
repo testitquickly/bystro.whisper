@@ -4,7 +4,6 @@
     # в переменной FOLDER не надо указывать закрывающий слэш
     # глобальные переменные заданы в головном файле проекта — variables.sh
 
-
     # создать FILES - массив всех wav-файлов в каталоге input
 FILES=("$folder_input"/*.wav)
     # подсчитать количество вхождений в массиве FILES
@@ -81,7 +80,7 @@ for FILE in "$folder_input"/*.wav; do
           # 2>&1 = читается как: "Перенаправить поток 2 (stderr) туда же, куда сейчас направлен поток 1 (stdout)."
           # всё вместе = перенаправляет поток 2 (stderr) в то же место, куда уже перенаправлен поток 1 (stdout), в данном случае —  в /dev/null.
 whisper "$FILE" \
-    --model large \
+    --model large-v3 \
     --output_format "$whisper_output_format" \
     --language "$whisper_language" \
     --device "$whisper_device" \
@@ -96,7 +95,7 @@ EXIT_CODE=$?
         # подтвердить успех транскрибации
     echo -e "$(printf "%d) %s ($FORMATTED_DURATION)" $COUNTER "$FILENAME")"
         # проиграть звук
-    $sound_file_is_transcribed    
+    $sound_file_is_transcribed
   else
     echo -e "Ошибка обработки \"$FILENAME\". Код ошибки: $EXIT_CODE.\n(если '127' — whisper не запущен, не поднялся python virt env)"
   fi
