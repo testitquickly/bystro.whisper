@@ -41,8 +41,8 @@ export NUMEXPR_NUM_THREADS=1
 
 # === Zim ===
 
-export zim_main_folder="/home/astenix/Dropbox/Notebooks/Whisper/"
-export zim_index_file="/home/astenix/Dropbox/Notebooks/Whisper/index.txt"
+export zim_main_folder="/home/astenix/Notebooks/Whisper/"
+export zim_index_file="/home/astenix/Notebooks/Whisper/index.txt"
 
 # === TAR ===
 
