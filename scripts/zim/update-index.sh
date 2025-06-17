@@ -1,114 +1,109 @@
 #!/bin/bash
 
-echo -e "\n\t>> Обновить ссылки на странице „index” "
+echo -e "\n\t>> Обновить ссылки на странице „index”"
 
-# Проверяем существование папки
+# Проверка на наличие главной папки
 if [ ! -d "$zim_main_folder" ]; then
   echo -e "\nПапка $zim_main_folder не найдена."
   exit 1
 fi
 
-# Удаляем содержимое MAIN_FILE и добавляем заголовок
+# Обнуляем файл index и пишем заголовок
 cat > "$zim_index_file" <<EOL
 Content-Type: text/x-zim-wiki
 Wiki-Format: zim 0.6
-Creation-Date: 2023-01-12T16:01:54+02:00
+Creation-Date: $(date --iso-8601=seconds)
 
 ====== index ======
 
 EOL
 
-# Переменная для нумерации
-counter=1
-
-# Функция для обработки файлов и генерации ссылок
-process_files() {
+# Функция обработки верхнего уровня
+process_top_level() {
   local CURRENT_FOLDER="$1"
-  local DEPTH="$2" # Глубина вложенности (для формирования отступов)
 
-  # Получаем список файлов и каталогов, сортируем по алфавиту
-  local ENTRIES=( "$CURRENT_FOLDER"* )
+  local ENTRIES=( "$CURRENT_FOLDER"/* )
   IFS=$'\n' sorted_entries=( $(printf "%s\n" "${ENTRIES[@]}" | sort) )
 
   for ENTRY in "${sorted_entries[@]}"; do
     if [ -d "$ENTRY" ]; then
-      # Проверяем, что одноимённый файл существует
-      local PARENT_NOTE="${ENTRY}.txt"
-      if [ -f "$PARENT_NOTE" ] && [ "$PARENT_NOTE" != "$zim_main_folder/index.txt" ]; then
-        local NOTE_NAME=$(basename "$ENTRY" | sed 's/_/ /g')
+      local BASENAME=$(basename "$ENTRY")
+      local NOTE_FILE="$ENTRY.txt"
 
-        # Формируем отступ в зависимости от уровня вложенности
-        local INDENT=$'\t'
-
-        echo -e "$counter. $INDENT[[$NOTE_NAME|$NOTE_NAME]]" >> "$zim_index_file"
-        ((counter++))
-
-        # Рекурсивно обрабатываем дочерние заметки с символом "*"
-        process_files_with_bullets "$ENTRY/" "$NOTE_NAME" $((DEPTH + 1))
+      if [ -f "$NOTE_FILE" ]; then
+        local NOTE_NAME=$(echo "$BASENAME" | sed 's/_/ /g')
+        echo -e "\n===== $NOTE_NAME =====\n" >> "$zim_index_file"
+        local count=1
+        process_subpages "$ENTRY" "$NOTE_NAME" 1 count
       fi
     elif [[ "$ENTRY" == *.txt ]]; then
-      # Обрабатываем только текстовые файлы, игнорируя каталоги
       local FILENAME=$(basename "$ENTRY")
-      local BASENAME="${FILENAME%.*}"
+      local NAME_NOEXT="${FILENAME%.txt}"
 
-      # Пропускаем текстовые файлы, если есть одноимённый каталог
-      if [ -d "${CURRENT_FOLDER}${BASENAME}" ]; then
+      # Пропускаем index.txt
+      if [ "$ENTRY" = "$zim_main_folder/index.txt" ]; then
         continue
       fi
 
-      local NOTE_NAME=$(echo "$BASENAME" | sed 's/_/ /g')
-
-      # Пропускаем файл index.txt
-      if [ "$CURRENT_FOLDER/$FILENAME" != "$zim_main_folder/index.txt" ]; then
-        local INDENT=$'\t'
-        echo -e "$counter. $INDENT[[$NOTE_NAME|$NOTE_NAME]]" >> "$zim_index_file"
-        ((counter++))
+      # Пропускаем, если есть одноимённая папка
+      if [ -d "$CURRENT_FOLDER/$NAME_NOEXT" ]; then
+        continue
       fi
+
+      local NOTE_NAME=$(echo "$NAME_NOEXT" | sed 's/_/ /g')
+      echo -e "\n===== $NOTE_NAME =====\n" >> "$zim_index_file"
+      local count=1
+      process_subpages "$CURRENT_FOLDER/$NAME_NOEXT" "$NOTE_NAME" 1 count
     fi
   done
 }
 
-# Функция для обработки дочерних заметок с символом "*"
-process_files_with_bullets() {
+# Рекурсивная функция: каждый уровень нумеруется отдельно
+process_subpages() {
   local CURRENT_FOLDER="$1"
-  local PARENT_NAME="$2"
+  local PARENT_PATH="$2"
   local DEPTH="$3"
+  local -n count_ref=$4
 
-  local ENTRIES=( "$CURRENT_FOLDER"* )
-  IFS=$'\n' sorted_entries=( $(printf "%s\n" "${ENTRIES[@]}" | sort) )
+  local ENTRIES=( "$CURRENT_FOLDER"/* )
+    # сортировка естественным образом, 1, 2, … 9, 10, 11
+  IFS=$'\n' sorted_entries=( $(printf "%s\n" "${ENTRIES[@]}" | sort -V) )
 
   for ENTRY in "${sorted_entries[@]}"; do
     if [[ "$ENTRY" == *.txt ]]; then
       local FILENAME=$(basename "$ENTRY")
-      local BASENAME="${FILENAME%.*}"
-      local NOTE_NAME=$(echo "$BASENAME" | sed 's/_/ /g')
+      local NAME_NOEXT="${FILENAME%.txt}"
 
-      # Формируем отступ в зависимости от уровня вложенности
-      local INDENT=$'\t'
-
-      # Пропускаем файл index.txt
-      if [ "$CURRENT_FOLDER/$FILENAME" != "$zim_main_folder/index.txt" ]; then
-        echo -e "$INDENT* [[$PARENT_NAME:$NOTE_NAME|$NOTE_NAME]]" >> "$zim_index_file"
+      if [ "$ENTRY" = "$zim_main_folder/index.txt" ]; then
+        continue
       fi
+
+      if [ -d "$CURRENT_FOLDER/$NAME_NOEXT" ]; then
+        continue
+      fi
+
+      local NOTE_NAME=$(echo "$NAME_NOEXT" | sed 's/_/ /g')
+      local INDENT=$(printf '\t%.0s' $(seq 1 "$DEPTH"))
+      echo -e "$INDENT${count_ref}. [[$PARENT_PATH:$NOTE_NAME|$NOTE_NAME]]" >> "$zim_index_file"
+      ((count_ref++))
     elif [ -d "$ENTRY" ]; then
-      # Проверяем, что одноимённый файл существует
-      local PARENT_NOTE="${ENTRY}.txt"
-      if [ -f "$PARENT_NOTE" ] && [ "$PARENT_NOTE" != "$zim_main_folder/index.txt" ]; then
-        local NOTE_NAME=$(basename "$ENTRY" | sed 's/_/ /g')
+      local BASENAME=$(basename "$ENTRY")
+      local NOTE_FILE="$ENTRY.txt"
 
-        # Формируем отступ для каталога
-        local INDENT=$'\t'
+      if [ -f "$NOTE_FILE" ]; then
+        local NOTE_NAME=$(echo "$BASENAME" | sed 's/_/ /g')
+        local INDENT=$(printf '\t%.0s' $(seq 1 "$DEPTH"))
+        echo -e "$INDENT${count_ref}. [[$PARENT_PATH:$NOTE_NAME|$NOTE_NAME]]" >> "$zim_index_file"
+        ((count_ref++))
 
-        echo -e "$INDENT* [[$PARENT_NAME:$NOTE_NAME|$NOTE_NAME]]" >> "$zim_index_file"
-
-        # Рекурсивно обрабатываем дочерние заметки внутри каталога
-        process_files_with_bullets "$ENTRY/" "$PARENT_NAME:$NOTE_NAME" $((DEPTH + 1))
+        local nested_count=1
+        process_subpages "$ENTRY" "$PARENT_PATH:$NOTE_NAME" $((DEPTH + 1)) nested_count
       fi
     fi
   done
 }
 
-# Запускаем обработку файлов в папке
-process_files "$zim_main_folder" 0
+# Старт обхода
+process_top_level "$zim_main_folder"
 
-echo -e "\nОбновил"
+echo -e "\nСсылки обновлены"
