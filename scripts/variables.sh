@@ -1,7 +1,7 @@
 # === Транскрибирование ===
 
     # Путь к виртуальному окружению Python с Whisper
-export whisper_virtual_environment_path='/home/astenix/workspace/Whisper/Whisper_env/bin/activate'
+export whisper_virtual_environment_path='/home/astenix/workspace/LLMs/Whisper/Whisper_env/bin/activate'
 
     # Каталог с файлами (без завершающего слэша)
 export folder_input='/home/astenix/workspace/bystro.whisper/input'
@@ -44,11 +44,10 @@ export NUMEXPR_NUM_THREADS=1
 export zim_main_folder="/home/astenix/Notebooks/Whisper/"
 export zim_index_file="/home/astenix/Notebooks/Whisper/index.txt"
 
-# === TAR ===
-
-export archive_filename='/home/astenix/workspace/Whisper/archive.tar'
-
 # === FINAL SOUNDS ===
+
+    # ssh-ключи для соединения с основным компьютером
+export ssh_keys='/home/astenix/keys/ssh/astenix'
 
     # короткий сигнал про завершение транскрибрования каждого файла
 export sound_file_is_transcribed='paplay /usr/share/sounds/freedesktop/stereo/dialog-warning.oga'

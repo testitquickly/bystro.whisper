@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo -e "\nПереместить файлы из /input/ в /archive/\n"
+
     # Проверяем, существуют ли каталоги
 if [[ ! -d "$folder_input" ]]; then
     echo "Ошибка: Каталог $folder_input не существует."
@@ -18,12 +20,15 @@ fi
     #mv "$folder_input"/* "$folder_input"/.* "$folder_output"/ 2>/dev/null
 
     # Перемещаем всё содержимое (видимые файлы и каталоги)
-mv "$folder_input"/* "$folder_output"
+#mv "$folder_input"/* "$folder_output/"
+
+    # Перемещаем все файлы (без каталогов, их там быть не должно) кроме *.wav
+find $folder_input -maxdepth 1 -type f ! -name '*.wav' -exec mv -t "$folder_output/" {} +
 
     # Проверяем результат
 if [[ $? -eq 0 ]]; then
-    echo "Файлы успешно перемещены."
+    echo "Переместил"
 else
-    echo "Ошибка при перемещении файлов."
+    echo "Ошибка при перемещении файлов!"
     exit 1
 fi
