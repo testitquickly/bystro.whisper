@@ -4,7 +4,7 @@ echo -e "\n\t>> Обновить ссылки на странице „index”"
 
 # Проверка на наличие главной папки
 if [ ! -d "$zim_main_folder" ]; then
-  echo -e "\nПапка $zim_main_folder не найдена."
+  echo -e "\nКаталог $zim_main_folder не найден."
   exit 1
 fi
 
@@ -106,4 +106,4 @@ process_subpages() {
 # Старт обхода
 process_top_level "$zim_main_folder"
 
-echo -e "\nСсылки обновлены"
+echo -e "\nГотово"

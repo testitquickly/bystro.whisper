@@ -1,10 +1,6 @@
 #!/bin/bash
 
-: << 'COMMENT'
-    Это блок комментариев. Можно писать что угодно здесь, и оно не будет выполнено.
-COMMENT
-
-    # = Глобальный файл с переменными =
+# = Глобальный файл с переменными =
 
 source ./scripts/variables.sh
 
@@ -20,9 +16,13 @@ source ./scripts/variables.sh
 
 # === Zim ===
 
-    # собрать новый файл для Zim на основе содержимого всех vtt-файлов
+    # переделать файлы vtt в txt для Zim
 ./scripts/zim/convert-vtt-file-to-txt.sh
-    # пересобрать содержимое страницы Main
+
+    # переместить все файлы txt под страницу index
+./scripts/zim/move-txt-to-index.sh
+
+    # пересобрать содержимое страницы index
 ./scripts/zim/update-index.sh
 
 # === Конвертирование файлов из wav в ogg ===
@@ -41,3 +41,7 @@ source ./scripts/variables.sh
 $sound_all_files_are_transcribed
 
 echo -e "\n "
+
+: << 'COMMENT'
+    Это блок комментариев. Можно писать что угодно здесь, и оно не будет выполнено.
+COMMENT

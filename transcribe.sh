@@ -16,9 +16,13 @@ COMMENT
 
 # === Zim ===
 
-    # собрать новый файл для Zim на основе содержимого всех vtt-файлов
+    # переделать файлы vtt в txt для Zim
 ./scripts/zim/convert-vtt-file-to-txt.sh
-    # пересобрать содержимое страницы Main
+
+    # переместить все файлы txt под страницу index
+./scripts/zim/move-txt-to-index.sh
+
+    # пересобрать содержимое страницы index
 ./scripts/zim/update-index.sh
 
 # === Конвертирование файлов из wav в ogg ===

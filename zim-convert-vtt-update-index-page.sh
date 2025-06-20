@@ -5,8 +5,10 @@
 
 ./scripts/zim/convert-vtt-file-to-txt.sh
 
+./scripts/zim/move-txt-to-index.sh
+
 ./scripts/zim/update-index.sh
 
 ./scripts/common/move-files-to-archive-folder.sh
 
-echo -e "\nDone"
+echo -e "\n "
