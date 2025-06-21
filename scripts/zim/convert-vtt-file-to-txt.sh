@@ -22,7 +22,8 @@ for file in *.vtt; do
         "$file" > "$initialFile"
 
     echo -e "\t== Обработка $file через SentenceTransformer"
-    python3 ~/workspace/SentenceTransformer/sentence-transformer.py
+    # python3 ~/workspace/SentenceTransformer/sentence-transformer.py
+    python3 ../scripts/zim/sentence-transformer.py
 
 current_date_and_time=$(date +"%Y-%m-%dT%H:%M:%S")
 

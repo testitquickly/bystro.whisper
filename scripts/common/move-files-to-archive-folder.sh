@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "\nПереместить файлы из /input/ в /archive/\n"
+echo -e "\n\t>> Переместить файлы из /input/ в /archive/\n"
 
     # Проверяем, существуют ли каталоги
 if [[ ! -d "$folder_input" ]]; then
@@ -27,7 +27,7 @@ find $folder_input -maxdepth 1 -type f ! -name '*.wav' -exec mv -t "$folder_outp
 
     # Проверяем результат
 if [[ $? -eq 0 ]]; then
-    echo "Переместил"
+    echo "Готово"
 else
     echo "Ошибка при перемещении файлов!"
     exit 1
