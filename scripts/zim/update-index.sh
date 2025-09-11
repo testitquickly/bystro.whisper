@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "\n\t>> Обновить ссылки на странице „index”"
+echo -e "\n\t>> Обновить ссылки на странице „index” в блокноте Zim “Whisper”"
 
 # Проверка на наличие главной папки
 if [ ! -d "$zim_main_folder" ]; then
