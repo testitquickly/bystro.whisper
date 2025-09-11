@@ -1,5 +1,6 @@
 *.tar
 *.ogg
+*.opus
 *.wav
 *.vtt
 *.txt
