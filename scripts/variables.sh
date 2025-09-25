@@ -44,6 +44,9 @@ export NUMEXPR_NUM_THREADS=1
 export zim_main_folder="/home/astenix/Notebooks/Whisper/"
 export zim_index_file="/home/astenix/Notebooks/Whisper/index.txt"
 
+#export zim_main_folder="/home/astenix/Notebooks/Main/"
+#export zim_index_file="/home/astenix/Notebooks/Main/index.txt"
+
 # === FINAL SOUNDS ===
 
     # ssh-ключи для соединения с основным компьютером
