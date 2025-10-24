@@ -2,6 +2,7 @@
 *.ogg
 *.opus
 *.wav
+*.WAV
 *.vtt
 *.txt
 *.MP3
