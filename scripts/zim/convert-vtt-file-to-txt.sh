@@ -21,7 +21,7 @@ for file in *.vtt; do
         -e 's/WEBVTT//g' \
         "$file" > "$initialFile"
 
-    echo -e "\t== Обработка $file через SentenceTransformer"
+    echo -e "• $file обрабатывается через SentenceTransformer"
     # python3 ~/workspace/SentenceTransformer/sentence-transformer.py
     python3 ../scripts/zim/sentence-transformer.py
 
@@ -30,7 +30,7 @@ current_date_and_time=$(date +"%Y-%m-%dT%H:%M:%S")
     # Добавить заголовок Zim и сохранить в txt
     sed -e "1s|^|Content-Type: text/x-zim-wiki\nWiki-Format: zim 0.6\nCreation-Date: $current_date_and_time\n\n====== ${file%.vtt} ======\n\n''${output_file_name}.ogg''\n\n\n|" "$initialFile" > "${output_file_name}.txt"
 
-    echo "• ${output_file_name}.txt"
+    echo -e "\tГотово"
 done
 
 deactivate
