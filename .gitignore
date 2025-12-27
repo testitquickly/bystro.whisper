@@ -1,23 +1,10 @@
-*.aac
-*.amr
-*.au
-*.aup
-*.MP3
-*.mp3
-*.ogg
-*.opus
-*.wav
-*.WAV
-
 *.tar
 *.zip
-
-*.docx
-*.odt
-
-*.description
 *.txt
-*.vtt
-
-.input/
-!/.input/.gitkeep
+    # игнорировать всюдиректорию input и всё ее содержимое,
+    # но сделать исключение и учитывать файл input/.gitkeep 
+    # что помогает коммитить пустой каталог input
+input/
+!/input/.gitkeep
+archive/
+!/archive/.gitkeep
