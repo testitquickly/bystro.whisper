@@ -7,7 +7,7 @@ zim_output_tmp="/tmp/zim-output-tmp.txt"
 
 cd "$folder_input" || exit 1
 
-source ~/workspace/SentenceTransformer/SentenceTransformer_env/bin/activate
+source ~/workspace/LLMs/SentenceTransformer/SentenceTransformer_env/bin/activate
 
 for file in *.vtt; do
     [[ -f "$file" ]] || continue
