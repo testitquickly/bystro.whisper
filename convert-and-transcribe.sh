@@ -39,7 +39,7 @@ source ./scripts/variables.sh
 # === END OF STORY ===
 
     # долгий сигнал про завершение транскрибрования
-$sound_all_files_are_transcribed
+$sound_all_files_are_transcribed_short
 
 echo -e "\n "
 

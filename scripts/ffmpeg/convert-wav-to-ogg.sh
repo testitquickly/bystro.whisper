@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "\n\t>> Конвертировать файлы wav в ogg:\n"
+echo -e "\n\t[Конвертировать файлы wav в ogg]\n"
 
 # = Глобальный файл с переменными =
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
@@ -18,4 +18,4 @@ for file in $folder_input/*.wav; do
     echo -e "• $(basename "$file")"
 done
 
-echo -e "\nСконвертировал"
+echo -e "\nDone"

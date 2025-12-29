@@ -16,7 +16,7 @@ echo "folder_input = $folder_input"
 
 echo $folder_input
 
-echo -e "\n\t>> Конвертировать новые аудиофайлы в wav"
+echo -e "\n\t[Конвертировать новые аудиофайлы в wav]"
 
     # Цикл по всем файлам в каталоге
 for file in "$folder_input"/*; do
@@ -36,4 +36,4 @@ for file in "$folder_input"/*; do
   fi
 done
 
-echo -e "\nСконвертировал"
+echo -e "\nDone"

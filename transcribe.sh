@@ -45,4 +45,4 @@ $sound_all_files_are_transcribed_short
     # долгий сигнал про завершение транскрибрования
 # $sound_all_files_are_transcribed_long
 
-echo -e "\n "
+# echo -e "\n "

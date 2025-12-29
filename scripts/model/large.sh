@@ -34,7 +34,7 @@ if [ -z "$VIRTUAL_ENV" ]; then
   exit 1
 else
     CURRENT_TIME=$(LC_TIME=ru_RU.UTF-8 date +"%H:%M")
-    echo -e "\n\t>> Начинаю транскрибирование\n\n\tМодель:\tlarge\n\tФайлов:\t$TOTAL_FILES\n\tВремя:\t$CURRENT_TIME\n"
+    echo -e "\n\t>[Начинаю транскрибирование]\n\n\tМодель:\tlarge\n\tФайлов:\t$TOTAL_FILES\n\tВремя:\t$CURRENT_TIME\n"
 fi
 
       # запуск отдельного окна с нагрузкой на GPU
@@ -117,4 +117,4 @@ deactivate
 
   # снова сохранить время в переменную CURRENT_TIME
 CURRENT_TIME=$(LC_TIME=ru_RU.UTF-8 date +"%H:%M")
-echo -e "\nТранскрибировал. Время:\t$CURRENT_TIME"
+echo -e "\nDone\nВремя:\t$CURRENT_TIME"

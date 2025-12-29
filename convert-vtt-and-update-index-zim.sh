@@ -11,4 +11,4 @@
 
 ./scripts/common/move-files-to-archive-folder.sh
 
-echo -e "\n "
+echo -e "\nDone\n"

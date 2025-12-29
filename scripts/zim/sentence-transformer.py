@@ -1,8 +1,5 @@
     # Sentece Transformer должен быть сперва отдельно установлен
-
-# = Глобальный файл с переменными =
-SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-source "$SCRIPT_DIR/../variables.sh"
+    # в /home/astenix/workspace/LLMs/SentenceTransformer/
 
 from sentence_transformers import SentenceTransformer
 from sklearn.cluster import DBSCAN
@@ -14,8 +11,11 @@ import os # прописывание относительных путей
 import subprocess # для открытия файла в текстовом редакторе
 import nltk
 
+initialFile = "/tmp/vtt-tmp.txt"
+tempFile = "/tmp/st-tmp.txt"
+
 # Корень пользовательского каталога NLTK
-nltk_data_root = os.path.expanduser('$llms_path')
+nltk_data_root = os.path.expanduser('/home/astenix/workspace/LLMs')
 
 # Добавить путь, в котором должны находиться файлы токенайзера
 nltk.data.path.append(nltk_data_root)
@@ -38,9 +38,6 @@ eps_val = 0.11
 #myModel = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"    # Лёгкая модель, быстрая, средний результат
 myModel = "intfloat/multilingual-e5-base"     # оптимальна для CPU
 #myModel = "intfloat/multilingual-e5-large"    # Лучшая, но очень тяжёлая, сильно нагружает CPU
-
-initialFile = "/tmp/vtt-tmp.txt"
-tempFile = "/tmp/st-tmp.txt"
 
 # === ВЫПОЛНЕНИЕ
 
