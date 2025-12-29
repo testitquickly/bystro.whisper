@@ -5,7 +5,7 @@
 
 ./scripts/zim/convert-vtt-file-to-txt.sh
 
-./scripts/zim/move-txt-to-index.sh
+./scripts/zim/move-txt-to-folder-unsorted.sh
 
 ./scripts/zim/update-index.sh
 

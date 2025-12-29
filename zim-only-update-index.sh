@@ -6,4 +6,4 @@
     # пересобрать содержимое страницы index
 ./scripts/zim/update-index.sh
 
-echo -e "\nDone"
+echo -e "\nDone\n"
