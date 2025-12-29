@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# = Глобальный файл с переменными =
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+source "$SCRIPT_DIR/../variables.sh"
+
 echo -e "\n\t>> Переделать файлы vtt в txt для Zim\n"
 
 initialFile="/tmp/vtt-tmp.txt"
@@ -7,7 +11,7 @@ zim_output_tmp="/tmp/zim-output-tmp.txt"
 
 cd "$folder_input" || exit 1
 
-source ~/workspace/LLMs/SentenceTransformer/SentenceTransformer_env/bin/activate
+source $SentenceTransformer_virtual_environment_path
 
 for file in *.vtt; do
     [[ -f "$file" ]] || continue
@@ -21,7 +25,7 @@ for file in *.vtt; do
         -e 's/WEBVTT//g' \
         "$file" > "$initialFile"
 
-    echo -e "• $file обрабатывается через SentenceTransformer"
+    echo -e "SentenceTransformer => $file "
     # python3 ~/workspace/SentenceTransformer/sentence-transformer.py
     python3 ../scripts/zim/sentence-transformer.py
 

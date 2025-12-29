@@ -12,7 +12,8 @@ source ./scripts/variables.sh
 
 #./scripts/model/small.sh
 #./scripts/model/medium.sh
-./scripts/model/large.sh
+#./scripts/model/large.sh
+./scripts/model/turbo.sh
 
 # === Zim ===
 
@@ -20,7 +21,7 @@ source ./scripts/variables.sh
 ./scripts/zim/convert-vtt-file-to-txt.sh
 
     # переместить все файлы txt под страницу index
-./scripts/zim/move-txt-to-index.sh
+./scripts/zim/move-txt-to-folder-unsorted.sh
 
     # пересобрать содержимое страницы index
 ./scripts/zim/update-index.sh

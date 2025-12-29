@@ -1,7 +1,9 @@
 # === Транскрибирование ===
 
     # Путь к виртуальному окружению Python с Whisper
-export whisper_virtual_environment_path='/home/astenix/workspace/LLMs/Whisper/Whisper_env/bin/activate'
+export llms_path='/home/astenix/workspace/LLMs'
+export whisper_virtual_environment_path='/home/astenix/workspace/LLMs/Whisper/whisper_env/bin/activate'
+export SentenceTransformer_virtual_environment_path='/home/astenix/workspace/LLMs/SentenceTransformer/SentenceTransformer_env/bin/activate'
 
     # Каталог с файлами (без завершающего слэша)
 export folder_input='/home/astenix/workspace/bystro.whisper/input'
@@ -20,7 +22,7 @@ export whisper_output_format='vtt'
 export whisper_device='cpu'
 
     # Количество физических ядер, выделенных для Whisper
-export whisper_threads='2'
+export whisper_threads='3'
 
     # по-умолчанию True. Установить 'False' для CPU;
     # кавычки не нужны, это boolean
@@ -41,11 +43,9 @@ export NUMEXPR_NUM_THREADS=1
 
 # === Zim ===
 
-export zim_main_folder="/home/astenix/Notebooks/Whisper/"
-export zim_index_file="/home/astenix/Notebooks/Whisper/index.txt"
-
-#export zim_main_folder="/home/astenix/Notebooks/Main/"
-#export zim_index_file="/home/astenix/Notebooks/Main/index.txt"
+export zim_folder_main="/home/astenix/Notebooks/Whisper"
+export zim_file_index="index.txt"
+export zim_folder_unsorted="Unsorted"
 
 # === FINAL SOUNDS ===
 

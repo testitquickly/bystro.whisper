@@ -4,6 +4,9 @@
     # в переменной FOLDER не надо указывать закрывающий слэш
     # глобальные переменные заданы в головном файле проекта — variables.sh
 
+    # = Глобальный файл с переменными =
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+source "$SCRIPT_DIR/../variables.sh"
 
     # создать FILES - массив всех wav-файлов в каталоге input
 FILES=("$folder_input"/*.wav)

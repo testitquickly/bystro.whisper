@@ -1,5 +1,9 @@
     # Sentece Transformer должен быть сперва отдельно установлен
 
+# = Глобальный файл с переменными =
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+source "$SCRIPT_DIR/../variables.sh"
+
 from sentence_transformers import SentenceTransformer
 from sklearn.cluster import DBSCAN
 from sklearn.metrics.pairwise import cosine_distances
@@ -11,7 +15,7 @@ import subprocess # для открытия файла в текстовом р�
 import nltk
 
 # Корень пользовательского каталога NLTK
-nltk_data_root = os.path.expanduser('~/workspace/LLMs')
+nltk_data_root = os.path.expanduser('$llms_path')
 
 # Добавить путь, в котором должны находиться файлы токенайзера
 nltk.data.path.append(nltk_data_root)

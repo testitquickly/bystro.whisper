@@ -8,7 +8,6 @@
 
 # = Глобальный файл с переменными =
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-
 source "$SCRIPT_DIR/../variables.sh"
 
 echo "folder_input = $folder_input"

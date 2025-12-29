@@ -1,15 +1,21 @@
 #!/bin/bash
+# -*- coding: utf-8 -*-
+# Скрипт собирает файлы .txt первого уровня в index.txt.
+# - Каждый обнаруженный файл становится заголовком второго уровня (===== Заголовок =====)
+# - Unsorted всегда ставим первым
+# - Игнорируем сам файл index.txt
+# - Под каждым заголовком собираем нумерованные ссылки на файлы из каталога с таким именем
+# - Списки файлов отодвинуты на один таб от левого края (для красоты)
 
-echo -e "\n\t>> Обновить ссылки на странице „index” в блокноте Zim “Whisper”"
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+source "$SCRIPT_DIR/../variables.sh"
 
-# Проверка на наличие главной папки
-if [ ! -d "$zim_main_folder" ]; then
-  echo -e "\nКаталог $zim_main_folder не найден."
-  exit 1
-fi
+index_path="$zim_folder_main/$zim_file_index"
 
-# Обнуляем файл index и пишем заголовок
-cat > "$zim_index_file" <<EOL
+# ───────────────────────────────────────────────
+# Инициализация index.txt
+# ───────────────────────────────────────────────
+cat > "$zim_folder_main/$zim_file_index" <<EOL
 Content-Type: text/x-zim-wiki
 Wiki-Format: zim 0.6
 Creation-Date: $(date --iso-8601=seconds)
@@ -18,92 +24,47 @@ Creation-Date: $(date --iso-8601=seconds)
 
 EOL
 
-# Функция обработки верхнего уровня
-process_top_level() {
-  local CURRENT_FOLDER="$1"
+# ───────────────────────────────────────────────
+# Получаем список файлов первого уровня, исключая index.txt
+# ───────────────────────────────────────────────
+mapfile -t files_level1 < <(find "$zim_folder_main" -maxdepth 1 -type f -name "*.txt" ! -iname "$zim_file_index" | sort)
 
-  local ENTRIES=( "$CURRENT_FOLDER"/* )
-  IFS=$'\n' sorted_entries=( $(printf "%s\n" "${ENTRIES[@]}" | sort) )
-
-  for ENTRY in "${sorted_entries[@]}"; do
-    if [ -d "$ENTRY" ]; then
-      local BASENAME=$(basename "$ENTRY")
-      local NOTE_FILE="$ENTRY.txt"
-
-      if [ -f "$NOTE_FILE" ]; then
-        local NOTE_NAME=$(echo "$BASENAME" | sed 's/_/ /g')
-        echo -e "\n===== $NOTE_NAME =====\n" >> "$zim_index_file"
-        local count=1
-        process_subpages "$ENTRY" "$NOTE_NAME" 1 count
-      fi
-    elif [[ "$ENTRY" == *.txt ]]; then
-      local FILENAME=$(basename "$ENTRY")
-      local NAME_NOEXT="${FILENAME%.txt}"
-
-      # Пропускаем index.txt
-      if [ "$ENTRY" = "$zim_main_folder/index.txt" ]; then
-        continue
-      fi
-
-      # Пропускаем, если есть одноимённая папка
-      if [ -d "$CURRENT_FOLDER/$NAME_NOEXT" ]; then
-        continue
-      fi
-
-      local NOTE_NAME=$(echo "$NAME_NOEXT" | sed 's/_/ /g')
-      echo -e "\n===== $NOTE_NAME =====\n" >> "$zim_index_file"
-      local count=1
-      process_subpages "$CURRENT_FOLDER/$NAME_NOEXT" "$NOTE_NAME" 1 count
+# Разделяем список "Unsorted" от остальных
+unsorted_files=()
+other_files=()
+for file in "${files_level1[@]}"; do
+    stem=$(basename "$file" .txt)
+    if [[ "$stem" == "Unsorted" ]]; then
+        unsorted_files+=("$file")
+    else
+        other_files+=("$file")
     fi
-  done
-}
+done
 
-# Рекурсивная функция: каждый уровень нумеруется отдельно
-process_subpages() {
-  local CURRENT_FOLDER="$1"
-  local PARENT_PATH="$2"
-  local DEPTH="$3"
-  local -n count_ref=$4
+files_ordered=("${unsorted_files[@]}" "${other_files[@]}")
 
-  local ENTRIES=( "$CURRENT_FOLDER"/* )
-    # сортировка естественным образом, 1, 2, … 9, 10, 11
-  IFS=$'\n' sorted_entries=( $(printf "%s\n" "${ENTRIES[@]}" | sort -V) )
+# ───────────────────────────────────────────────
+# Добавляем заголовки второго уровня и файлы из каталогов
+# ───────────────────────────────────────────────
+for file in "${files_ordered[@]}"; do
+    stem=$(basename "$file" .txt)
+    title="${stem//_/ }"
+    echo "===== $title =====" >> "$zim_folder_main/$zim_file_index"
+    echo "" >> "$zim_folder_main/$zim_file_index"
 
-  for ENTRY in "${sorted_entries[@]}"; do
-    if [[ "$ENTRY" == *.txt ]]; then
-      local FILENAME=$(basename "$ENTRY")
-      local NAME_NOEXT="${FILENAME%.txt}"
-
-      if [ "$ENTRY" = "$zim_main_folder/index.txt" ]; then
-        continue
-      fi
-
-      if [ -d "$CURRENT_FOLDER/$NAME_NOEXT" ]; then
-        continue
-      fi
-
-      local NOTE_NAME=$(echo "$NAME_NOEXT" | sed 's/_/ /g')
-      local INDENT=$(printf '\t%.0s' $(seq 1 "$DEPTH"))
-      echo -e "$INDENT${count_ref}. [[$PARENT_PATH:$NOTE_NAME|$NOTE_NAME]]" >> "$zim_index_file"
-      ((count_ref++))
-    elif [ -d "$ENTRY" ]; then
-      local BASENAME=$(basename "$ENTRY")
-      local NOTE_FILE="$ENTRY.txt"
-
-      if [ -f "$NOTE_FILE" ]; then
-        local NOTE_NAME=$(echo "$BASENAME" | sed 's/_/ /g')
-        local INDENT=$(printf '\t%.0s' $(seq 1 "$DEPTH"))
-        echo -e "$INDENT${count_ref}. [[$PARENT_PATH:$NOTE_NAME|$NOTE_NAME]]" >> "$zim_index_file"
-        ((count_ref++))
-
-        local nested_count=1
-        process_subpages "$ENTRY" "$PARENT_PATH:$NOTE_NAME" $((DEPTH + 1)) nested_count
-      fi
+    folder_path="$zim_folder_main/$stem"
+    if [[ -d "$folder_path" ]]; then
+        mapfile -t inner_files < <(find "$folder_path" -maxdepth 1 -type f -name "*.txt" | sort)
+        idx=1
+        for inner_file in "${inner_files[@]}"; do
+            inner_title=$(basename "$inner_file" .txt)
+            inner_title="${inner_title//_/ }"
+            echo -e "\t$idx. [[${title}:${inner_title}|${inner_title}]]" >> "$zim_folder_main/$zim_file_index"
+            ((idx++))
+        done
     fi
-  done
-}
 
-# Старт обхода
-process_top_level "$zim_main_folder"
+    echo "" >> "$zim_folder_main/$zim_file_index"
+done
 
-echo -e "\nГотово"
+echo -e "\nПерезаписан $zim_folder_main/$zim_file_index"

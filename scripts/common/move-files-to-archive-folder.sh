@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# = Глобальный файл с переменными =
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+source "$SCRIPT_DIR/../variables.sh"
+
 echo -e "\n\t>> Переместить файлы из /input/ в /archive/\n"
 
     # Проверяем, существуют ли каталоги
