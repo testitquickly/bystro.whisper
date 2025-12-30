@@ -29,10 +29,10 @@ for file in *.vtt; do
     # python3 ~/workspace/SentenceTransformer/sentence-transformer.py
     python3 ../scripts/zim/sentence-transformer.py
 
-current_date_and_time=$(date +"%Y-%m-%dT%H:%M:%S")
+    current_date_and_time=$(date +"%Y-%m-%dT%H:%M:%S")
 
     # Добавить заголовок Zim и сохранить в txt
-    sed -e "1s|^|Content-Type: text/x-zim-wiki\nWiki-Format: zim 0.6\nCreation-Date: $current_date_and_time\n\n====== ${file%.vtt} ======\n\n''${output_file_name}.ogg''\n\n\n|" "$initialFile" > "${output_file_name}.txt"
+    sed -e "1s|^|Content-Type: text/x-zim-wiki\nWiki-Format: zim 0.6\nCreation-Date: $current_date_and_time\n\n====== ${file%.vtt} ======\n\n''${file%.vtt}.ogg''\n\n\n|" "$initialFile" > "${output_file_name}.txt"
 
 done
 
