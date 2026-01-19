@@ -9,10 +9,10 @@ echo -e "\n\t[Переместить файлы txt в блокнот Whisper п
 # Зайти в каталог /input
 cd "$folder_input" || exit 1
 
-# Вывод и ошибки этой проверки глушатся.
+# Вывод этой команды глушится.
 # Проверить, есть ли в каталоге /input хотя бы один *.txt.
     # Если txt файлов нет → выдать ошибку
-    # Если txt файлы есть → перенести в каталог $zim_folder_unsorted все файлы txt
+    # Если txt файлы есть → перенести их в каталог $zim_folder_unsorted
 if ls *.txt 1> /dev/null 2>&1; then
     mkdir -p "$zim_folder_main/$zim_folder_unsorted"
     mv *.txt "$zim_folder_main/$zim_folder_unsorted/"
