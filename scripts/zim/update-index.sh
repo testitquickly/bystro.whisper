@@ -67,4 +67,4 @@ for file in "${files_ordered[@]}"; do
     echo "" >> "$zim_folder_main/$zim_file_index"
 done
 
-echo -e "\nОбновлён $zim_folder_main/$zim_file_index \nDone"
+echo -e "\nОбновлён $zim_folder_main/$zim_file_index "
