@@ -4,7 +4,7 @@
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 source "$SCRIPT_DIR/../variables.sh"
 
-echo -e "\n\t[Переделать файлы vtt в txt для Zim]\n"
+echo -e "\n\t[ Переделать файлы vtt в txt для Zim ]\n"
 
 initialFile="/tmp/vtt-tmp.txt"
 zim_output_tmp="/tmp/zim-output-tmp.txt"

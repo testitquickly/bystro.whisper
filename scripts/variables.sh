@@ -1,13 +1,13 @@
 # === Транскрибирование ===
 
     # Путь к виртуальному окружению Python с Whisper
-export llms_path='/home/astenix/workspace/LLMs'
-export whisper_virtual_environment_path='/home/astenix/workspace/LLMs/Whisper/whisper_env/bin/activate'
-export SentenceTransformer_virtual_environment_path='/home/astenix/workspace/LLMs/SentenceTransformer/SentenceTransformer_env/bin/activate'
+export llms_path='/home/hub/workspace/LLMs'
+export whisper_virtual_environment_path='/home/hub/workspace/LLMs/Whisper/whisper_env/bin/activate'
+export SentenceTransformer_virtual_environment_path='/home/hub/workspace/LLMs/SentenceTransformer/SentenceTransformer_env/bin/activate'
 
     # Каталог с файлами (без завершающего слэша)
-export folder_input='/home/astenix/workspace/bystro.whisper/input'
-export folder_output='/home/astenix/workspace/bystro.whisper/archive/'
+export folder_input='/home/hub/workspace/bystro.whisper/input'
+export folder_output='/home/hub/workspace/bystro.whisper/archive/'
 
     # Каталог корзины и её подкаталоги
 export folder_trash="$HOME/.local/share/Trash"

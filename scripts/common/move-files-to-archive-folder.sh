@@ -4,7 +4,7 @@
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 source "$SCRIPT_DIR/../variables.sh"
 
-echo -e "\n\t[Переместить *.vtt и *.ogg из input/ в archive/]"
+echo -e "\n\t[ Переместить *.vtt и *.ogg из input/ в archive/ ]"
 
     # Проверяем, существуют ли каталоги
 if [[ ! -d "$folder_input" ]]; then

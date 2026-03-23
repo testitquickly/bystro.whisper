@@ -4,7 +4,7 @@
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 source "$SCRIPT_DIR/../variables.sh"
 
-echo -e "\n\t[Переместить файлы txt в блокнот Whisper под страницу $zim_folder_unsorted]"
+echo -e "\n\t[ Переместить файлы txt в блокнот Whisper под страницу $zim_folder_unsorted ]"
 
 # Зайти в каталог /input
 cd "$folder_input" || exit 1
