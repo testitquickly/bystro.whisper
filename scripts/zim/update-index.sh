@@ -26,8 +26,9 @@ EOL
 
 # ───────────────────────────────────────────────
 # Получаем список файлов первого уровня, исключая index.txt
+# find -L — потому что в $zim_folder_main нет файлов, там линк на каталог в Dropbox
 # ───────────────────────────────────────────────
-mapfile -t files_level1 < <(find "$zim_folder_main" -maxdepth 1 -type f -name "*.txt" ! -iname "$zim_file_index" | sort)
+mapfile -t files_level1 < <(find -L "$zim_folder_main" -maxdepth 1 -type f -name "*.txt" ! -iname "$zim_file_index" | sort)
 
 # Разделяем список "Unsorted" от остальных
 unsorted_files=()
