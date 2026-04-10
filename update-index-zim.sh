@@ -1,7 +1,7 @@
 #!/bin/bash
 
     # = Глобальный файл с переменными =
-. ./scripts/variables.sh
+. ./scripts/variables.var
 
     # пересобрать содержимое страницы index
 ./scripts/zim/update-index.sh

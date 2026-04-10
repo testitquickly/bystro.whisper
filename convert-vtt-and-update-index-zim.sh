@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # = Глобальный файл с переменными =
-. ./scripts/variables.sh
+. ./scripts/variables.var
 
 ./scripts/zim/convert-vtt-file-to-txt.sh
 

@@ -6,7 +6,7 @@ COMMENT
 
     # = Глобальный файл с переменными =
 
-source ./scripts/variables.sh
+source ./scripts/variables.var
 
 # === Конвертирование файлов из wav в ogg ===
 

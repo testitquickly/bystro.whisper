@@ -2,7 +2,7 @@
 
 # = Глобальный файл с переменными =
 
-source ./scripts/variables.sh
+source ./scripts/variables.var
 
 # === Конвертирование в wav ===
 

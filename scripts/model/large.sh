@@ -6,7 +6,7 @@
 
 # = Глобальный файл с переменными =
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-source "$SCRIPT_DIR/../variables.sh"
+source "$SCRIPT_DIR/../variables.var"
 
     # создать FILES - массив всех wav-файлов в каталоге input
 FILES=("$folder_input"/*.wav)

@@ -6,7 +6,7 @@ COMMENT
 
 # = Глобальный файл с переменными =
 
-. ./scripts/variables.sh
+. ./scripts/variables.var
 
 # === Транскрибирование ===
 

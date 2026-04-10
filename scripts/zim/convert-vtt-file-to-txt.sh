@@ -2,7 +2,7 @@
 
 # = Глобальный файл с переменными =
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-source "$SCRIPT_DIR/../variables.sh"
+source "$SCRIPT_DIR/../variables.var"
 
 echo -e "\n\t[ Переделать файлы vtt в txt для Zim ]\n"
 

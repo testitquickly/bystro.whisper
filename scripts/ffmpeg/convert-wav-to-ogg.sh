@@ -4,7 +4,7 @@ echo -e "\n\t[Конвертировать файлы wav в ogg]\n"
 
 # = Глобальный файл с переменными =
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-source "$SCRIPT_DIR/../variables.sh"
+source "$SCRIPT_DIR/../variables.var"
 
 for file in $folder_input/*.wav; do
         # Заменить расширение .wav на .ogg

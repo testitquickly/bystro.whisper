@@ -8,7 +8,7 @@
 # - Списки файлов отодвинуты на один таб от левого края (для красоты)
 
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-source "$SCRIPT_DIR/../variables.sh"
+source "$SCRIPT_DIR/../variables.var"
 
 index_path="$zim_folder_main/$zim_file_index"
 

@@ -2,7 +2,7 @@
 
 # = Глобальный файл с переменными =
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-source "$SCRIPT_DIR/../variables.sh"
+source "$SCRIPT_DIR/../variables.var"
 
 echo -e "\n\t[ Переместить файлы txt в блокнот Whisper под страницу $zim_folder_unsorted ]"
 
