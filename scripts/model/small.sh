@@ -2,11 +2,8 @@
 
     # запустить обработку wav-файлов через whisper
     # в переменной FOLDER не надо указывать закрывающий слэш
-    # глобальные переменные заданы в головном файле проекта — variables.sh
+    # глобальные переменные заданы в головном файле проекта — variables.var
 
-    # = Глобальный файл с переменными =
-SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-source "$SCRIPT_DIR/../variables.var"
 
     # создать FILES - массив всех wav-файлов в каталоге input
 FILES=("$folder_input"/*.wav)
@@ -34,7 +31,7 @@ if [ -z "$VIRTUAL_ENV" ]; then
   exit 1
 else
     CURRENT_TIME=$(LC_TIME=ru_RU.UTF-8 date +"%H:%M")
-    echo -e "\n\t[Начинаю транскрибирование]\n\n\tМодель:\tsmall\n\tВремя:\t$CURRENT_TIME\n\tФайлов:\t$TOTAL_FILES\n"
+    echo -e "\n\t>> Начинаю транскрибирование\n\n\tМодель:\tsmall\n\tВремя:\t$CURRENT_TIME\n\tФайлов:\t$TOTAL_FILES\n"
 fi
 
       # запуск отдельного окна с нагрузкой на GPU
@@ -96,7 +93,7 @@ EXIT_CODE=$?
   if [ $EXIT_CODE -eq 0 ]; then
 	# подтвердить успех транскрибации
     echo -e "$(printf "%d) %s ($FORMATTED_DURATION)" $COUNTER "$FILENAME")"
-	# проиграть звук
+	# короткий звук
     sound_file_is_transcribed
   else
     echo -e "Ошибка обработки \"$FILENAME\". Код ошибки: $EXIT_CODE.\n(если '127' — whisper не запущен, не поднялся python virt env)"
@@ -115,4 +112,4 @@ deactivate
 
   # снова сохранить время в переменную CURRENT_TIME
 CURRENT_TIME=$(LC_TIME=ru_RU.UTF-8 date +"%H:%M")
-echo -e "\nDone\nВремя:\t$CURRENT_TIME"
+echo -e "\nТранскрибировал. Время:\t$CURRENT_TIME"

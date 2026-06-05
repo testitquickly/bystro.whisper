@@ -6,17 +6,7 @@
 
     # все переменные заданы в управляющем файле проекта
 
-# = Глобальный файл с переменными =
-SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-source "$SCRIPT_DIR/../variables.var"
-
-echo "folder_input = $folder_input"
-
-# === Конвертирование в wav ===
-
-echo $folder_input
-
-echo -e "\n\t[Конвертировать новые аудиофайлы в wav]"
+echo -e "\n\t>> Конвертировать новые аудиофайлы в wav"
 
     # Цикл по всем файлам в каталоге
 for file in "$folder_input"/*; do
@@ -36,4 +26,4 @@ for file in "$folder_input"/*; do
   fi
 done
 
-echo -e "\nDone"
+echo -e "\nСконвертировал"

@@ -1,71 +1,114 @@
 #!/bin/bash
-# -*- coding: utf-8 -*-
-# Скрипт собирает файлы .txt первого уровня в index.txt.
-# - Каждый обнаруженный файл становится заголовком второго уровня (===== Заголовок =====)
-# - Unsorted всегда ставим первым
-# - Игнорируем сам файл index.txt
-# - Под каждым заголовком собираем нумерованные ссылки на файлы из каталога с таким именем
-# - Списки файлов отодвинуты на один таб от левого края (для красоты)
 
-SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-source "$SCRIPT_DIR/../variables.var"
+echo -e "\n\t>> Обновить ссылки на странице „index” "
 
-index_path="$zim_folder_main/$zim_file_index"
+# Проверяем существование папки
+if [ ! -d "$zim_main_folder" ]; then
+  echo -e "\nПапка $zim_main_folder не найдена."
+  exit 1
+fi
 
-# ───────────────────────────────────────────────
-# Инициализация index.txt
-# ───────────────────────────────────────────────
-cat > "$zim_folder_main/$zim_file_index" <<EOL
+# Удаляем содержимое MAIN_FILE и добавляем заголовок
+cat > "$zim_index_file" <<EOL
 Content-Type: text/x-zim-wiki
 Wiki-Format: zim 0.6
-Creation-Date: $(date --iso-8601=seconds)
+Creation-Date: 2023-01-12T16:01:54+02:00
 
 ====== index ======
 
 EOL
 
-# ───────────────────────────────────────────────
-# Получаем список файлов первого уровня, исключая index.txt
-# find -L — потому что в $zim_folder_main нет файлов, там линк на каталог в Dropbox
-# ───────────────────────────────────────────────
-mapfile -t files_level1 < <(find -L "$zim_folder_main" -maxdepth 1 -type f -name "*.txt" ! -iname "$zim_file_index" | sort)
+# Переменная для нумерации
+counter=1
 
-# Разделяем список "Unsorted" от остальных
-unsorted_files=()
-other_files=()
-for file in "${files_level1[@]}"; do
-    stem=$(basename "$file" .txt)
-    if [[ "$stem" == "Unsorted" ]]; then
-        unsorted_files+=("$file")
-    else
-        other_files+=("$file")
+# Функция для обработки файлов и генерации ссылок
+process_files() {
+  local CURRENT_FOLDER="$1"
+  local DEPTH="$2" # Глубина вложенности (для формирования отступов)
+
+  # Получаем список файлов и каталогов, сортируем по алфавиту
+  local ENTRIES=( "$CURRENT_FOLDER"* )
+  IFS=$'\n' sorted_entries=( $(printf "%s\n" "${ENTRIES[@]}" | sort) )
+
+  for ENTRY in "${sorted_entries[@]}"; do
+    if [ -d "$ENTRY" ]; then
+      # Проверяем, что одноимённый файл существует
+      local PARENT_NOTE="${ENTRY}.txt"
+      if [ -f "$PARENT_NOTE" ] && [ "$PARENT_NOTE" != "$zim_main_folder/index.txt" ]; then
+        local NOTE_NAME=$(basename "$ENTRY" | sed 's/_/ /g')
+
+        # Формируем отступ в зависимости от уровня вложенности
+        local INDENT=$'\t'
+
+        echo -e "$counter. $INDENT[[$NOTE_NAME|$NOTE_NAME]]" >> "$zim_index_file"
+        ((counter++))
+
+        # Рекурсивно обрабатываем дочерние заметки с символом "*"
+        process_files_with_bullets "$ENTRY/" "$NOTE_NAME" $((DEPTH + 1))
+      fi
+    elif [[ "$ENTRY" == *.txt ]]; then
+      # Обрабатываем только текстовые файлы, игнорируя каталоги
+      local FILENAME=$(basename "$ENTRY")
+      local BASENAME="${FILENAME%.*}"
+
+      # Пропускаем текстовые файлы, если есть одноимённый каталог
+      if [ -d "${CURRENT_FOLDER}${BASENAME}" ]; then
+        continue
+      fi
+
+      local NOTE_NAME=$(echo "$BASENAME" | sed 's/_/ /g')
+
+      # Пропускаем файл index.txt
+      if [ "$CURRENT_FOLDER/$FILENAME" != "$zim_main_folder/index.txt" ]; then
+        local INDENT=$'\t'
+        echo -e "$counter. $INDENT[[$NOTE_NAME|$NOTE_NAME]]" >> "$zim_index_file"
+        ((counter++))
+      fi
     fi
-done
+  done
+}
 
-files_ordered=("${unsorted_files[@]}" "${other_files[@]}")
+# Функция для обработки дочерних заметок с символом "*"
+process_files_with_bullets() {
+  local CURRENT_FOLDER="$1"
+  local PARENT_NAME="$2"
+  local DEPTH="$3"
 
-# ───────────────────────────────────────────────
-# Добавляем заголовки второго уровня и файлы из каталогов
-# ───────────────────────────────────────────────
-for file in "${files_ordered[@]}"; do
-    stem=$(basename "$file" .txt)
-    title="${stem//_/ }"
-    echo "===== $title =====" >> "$zim_folder_main/$zim_file_index"
-    echo "" >> "$zim_folder_main/$zim_file_index"
+  local ENTRIES=( "$CURRENT_FOLDER"* )
+  IFS=$'\n' sorted_entries=( $(printf "%s\n" "${ENTRIES[@]}" | sort) )
 
-    folder_path="$zim_folder_main/$stem"
-    if [[ -d "$folder_path" ]]; then
-        mapfile -t inner_files < <(find "$folder_path" -maxdepth 1 -type f -name "*.txt" | sort)
-        idx=1
-        for inner_file in "${inner_files[@]}"; do
-            inner_title=$(basename "$inner_file" .txt)
-            inner_title="${inner_title//_/ }"
-            echo -e "\t$idx. [[${title}:${inner_title}|${inner_title}]]" >> "$zim_folder_main/$zim_file_index"
-            ((idx++))
-        done
+  for ENTRY in "${sorted_entries[@]}"; do
+    if [[ "$ENTRY" == *.txt ]]; then
+      local FILENAME=$(basename "$ENTRY")
+      local BASENAME="${FILENAME%.*}"
+      local NOTE_NAME=$(echo "$BASENAME" | sed 's/_/ /g')
+
+      # Формируем отступ в зависимости от уровня вложенности
+      local INDENT=$'\t'
+
+      # Пропускаем файл index.txt
+      if [ "$CURRENT_FOLDER/$FILENAME" != "$zim_main_folder/index.txt" ]; then
+        echo -e "$INDENT* [[$PARENT_NAME:$NOTE_NAME|$NOTE_NAME]]" >> "$zim_index_file"
+      fi
+    elif [ -d "$ENTRY" ]; then
+      # Проверяем, что одноимённый файл существует
+      local PARENT_NOTE="${ENTRY}.txt"
+      if [ -f "$PARENT_NOTE" ] && [ "$PARENT_NOTE" != "$zim_main_folder/index.txt" ]; then
+        local NOTE_NAME=$(basename "$ENTRY" | sed 's/_/ /g')
+
+        # Формируем отступ для каталога
+        local INDENT=$'\t'
+
+        echo -e "$INDENT* [[$PARENT_NAME:$NOTE_NAME|$NOTE_NAME]]" >> "$zim_index_file"
+
+        # Рекурсивно обрабатываем дочерние заметки внутри каталога
+        process_files_with_bullets "$ENTRY/" "$PARENT_NAME:$NOTE_NAME" $((DEPTH + 1))
+      fi
     fi
+  done
+}
 
-    echo "" >> "$zim_folder_main/$zim_file_index"
-done
+# Запускаем обработку файлов в папке
+process_files "$zim_main_folder" 0
 
-echo -e "\nОбновлён $zim_folder_main/$zim_file_index "
+echo -e "\nОбновил"

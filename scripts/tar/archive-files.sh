@@ -1,7 +1,5 @@
 #!/bin/bash
 
-    # OBSOLETE
-
     # сделать архив с нуля
     # tar -cvf archive-asus-zenbook-17.tar -C ./input .
 

@@ -1,13 +1,11 @@
 # === Транскрибирование ===
 
     # Путь к виртуальному окружению Python с Whisper
-export llms_path='/home/hub/workspace/LLMs'
-export whisper_virtual_environment_path='/home/hub/workspace/LLMs/Whisper/whisper_env/bin/activate'
-export SentenceTransformer_virtual_environment_path='/home/hub/workspace/LLMs/SentenceTransformer/SentenceTransformer_env/bin/activate'
+export whisper_virtual_environment_path='/home/hub-2/LLM/whisper/whisper_env/bin/activate'
 
     # Каталог с файлами (без завершающего слэша)
-export folder_input='/home/hub/workspace/bystro.whisper/input'
-export folder_output='/home/hub/workspace/bystro.whisper/archive/'
+export folder_input='/home/astenix/bystro.whisper/input'
+export folder_output='/home/astenix/bystro.whisper/archive'
 
     # Каталог корзины и её подкаталоги
 export folder_trash="$HOME/.local/share/Trash"
@@ -18,45 +16,75 @@ export folder_trash_info="$folder_trash/info"
 export whisper_language='Russian'
 export whisper_output_format='vtt'
 
-    # 'cpu' для работы с процессора, 'cuda' для работы с выделенной видеокарты
-export whisper_device='cpu'
+    # 'cpu' для работы с процессора,
+    # 'cuda' для работы с выделенной видеокарты
+export whisper_device='cuda'
 
-    # Количество физических ядер, выделенных для Whisper
-export whisper_threads='3'
+# если запуск на CPU — ничего не устанавливать, для CPU этот параметр вообще не нужен
+# если запуск на GPU — установить флаг --fp16"
+fp16_statement=""
+if [ "$whisper_device" = "cuda" ]; then
+    fp16_statement="--fp16"
+fi
 
-    # по-умолчанию True. Установить 'False' для CPU;
-    # кавычки не нужны, это boolean
-    # для cuda его вообще нужно убрать из файла с моделью
-export whisper_fp16=False
+# === БАЛАНСИРОВКА НАГРУЗКИ НА CPU:
 
-    # OpenBLAS — для линейной алгебры (могут использоваться при работе с тензорами в PyTorch). Важное.
-export OPENBLAS_NUM_THREADS=2
+    # Количество физических ядер, которые будет использовать балансировщик нагрузки
+    # всего их у меня 8
+PHYSICAL_CORES_TO_USE=5
 
-    # MKL — если у тебя установлена версия PyTorch, собранная с Intel MKL, то эта библиотека тоже может влиять на производительность. Важное.
-export MKL_NUM_THREADS=2
+    # эту переменную обязательно надо поставить тут, до начала подсчета MAX_THREADS;
+    # она обязательно должна содержать хоть какую-то цифру
+    # ее не надо export, она локальная
+whisper_threads=10
 
-    # OpenMP (OMP) — напрямую используется PyTorch для параллельных операций. Важное.
-export OMP_NUM_THREADS=2
+# определить максимально доступные логические потоки (на одно физическое ядро два виртуальных)
+MAX_THREADS=$((PHYSICAL_CORES_TO_USE * 2))
 
-    # NumExpr — редко задействуется в Whisper, используется со сторонними библиотеками для доп. обработки данных.
+# Количество потоков для Whisper — не должно превышать MAX_THREADS
+whisper_threads=$MAX_THREADS
+export whisper_threads
+
+# Получить список логических ядер для taskset
+export LOGICAL_CORES=$(lscpu -e=CPU,CORE | awk -v max="$PHYSICAL_CORES_TO_USE" '
+NR>1 {
+  if (!seen[$2] && count < max) { seen[$2]=1; count++; cores[$2]=$1 }
+  else if (seen[$2]) { cores[$2]=cores[$2]","$1 }
+}
+END {
+  out=""
+  for(c in cores){ if(out=="") out=cores[c]; else out=out","cores[c] }
+  print out
+}')
+# echo -e "\n\tВыбранные логические ядра для Whisper:\n\t $LOGICAL_CORES"
+
+# :БАЛАНСИРОВКА НАГРУЗКИ НА CPU ===
+
+    # Важное. OpenBLAS — для линейной алгебры (могут использоваться при работе с тензорами в PyTorch)
+export OPENBLAS_NUM_THREADS=$MAX_THREADS
+
+    # Важное. MKL — если установлена версия PyTorch, собранная с Intel MKL, то эта библиотека тоже может влиять на производительность
+export MKL_NUM_THREADS=$MAX_THREADS
+
+    # Важное. OpenMP (OMP) — напрямую используется PyTorch для параллельных операций
+export OMP_NUM_THREADS=$MAX_THREADS
+
+    # NumExpr — редко задействуется в Whisper, используется со сторонними библиотеками для доп. обработки данных
 export NUMEXPR_NUM_THREADS=1
 
 # === Zim ===
 
-export zim_folder_main="/home/astenix/Notebooks/Whisper"
-export zim_file_index="index.txt"
-export zim_folder_unsorted="Unsorted"
+export zim_main_folder="/home/astenix/Notebooks/Whisper/"
+export zim_index_file="/home/astenix/Notebooks/Whisper/index.txt"
 
-# === FINAL SOUNDS ===
+# === TAR ===
 
-    # ssh-ключи для соединения с основным компьютером
-export ssh_keys='/home/astenix/keys/ssh/astenix'
+#export archive_filename='/home/astenix/workspace/bystro.whisper/archive.tar'
+
+# === FINAL SOUND ===
 
     # короткий сигнал про завершение транскрибрования каждого файла
 export sound_file_is_transcribed='paplay /usr/share/sounds/freedesktop/stereo/dialog-warning.oga'
 
     # долгий сигнал про завершение транскрибрования всех файлов
-export sound_all_files_are_transcribed_long='paplay /usr/share/sounds/Oxygen-Sys-Log-In.ogg'
-
-    # короткий сигнал про завершение транскрибрования всех файлов
-export sound_all_files_are_transcribed_short='paplay /usr/share/sounds/Oxygen-Sys-Log-In-Short.ogg'
+export sound_all_files_are_transcribed='paplay /usr/share/sounds/Oxygen-Sys-Log-In.ogg'
