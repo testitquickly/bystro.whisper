@@ -9,7 +9,12 @@ SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 source "$SCRIPT_DIR/../variables.var"
 
     # создать FILES - массив всех wav-файлов в каталоге input
-FILES=("$folder_input"/*.wav)
+	# кроме файлов, содержащих "[done]" в названии
+mapfile -d '' FILES < <(
+    find "$folder_input" -maxdepth 1 -type f -name '*.wav' ! -name '*[done]*' -print0
+)
+
+
     # подсчитать количество вхождений в массиве FILES
 TOTAL_FILES=${#FILES[@]}
 

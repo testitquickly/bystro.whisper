@@ -7,6 +7,11 @@ SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 source "$SCRIPT_DIR/../variables.var"
 
 for file in $folder_input/*.wav; do
+
+    # Пропустить файлы, которые уже помечены как [done]
+    if [[ "$(basename "$file")" == "[done]"* ]]; then
+        continue
+    fi
         # Заменить расширение .wav на .ogg
     output_ogg_file="${file%.wav}.ogg"
 
@@ -25,6 +30,11 @@ for file in $folder_input/*.wav; do
         -ac 2 \
         -q:a 4 \
         "$output_ogg_file" > /dev/null 2>&1
+
+    # переименовать оригинальный wav — добавить слово ”done”
+    if [ $? -eq 0 ]; then
+        mv "$file" "$(dirname "$file")/[done] $(basename "$file")"
+    fi
 
     echo -e "• $(basename "$file")"
 
