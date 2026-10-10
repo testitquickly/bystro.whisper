@@ -10,9 +10,9 @@ source "$SCRIPT_DIR/../variables.var"
 
     # создать FILES - массив всех wav-файлов в каталоге input
 #FILES=("$folder_input"/*.wav)
-	# кроме файлов, содержащих "[done]" в названии
+	# кроме файлов, имя которых начинается в "[done] etc"
 mapfile -d '' FILES < <(
-    find "$folder_input" -maxdepth 1 -type f -name '*.wav' ! -name '*[done]*' -print0
+    find "$folder_input" -maxdepth 1 -type f -name '*.wav' ! -name '[[]done[]]*' -print0
 )
 
     # подсчитать количество вхождений в массиве FILES
